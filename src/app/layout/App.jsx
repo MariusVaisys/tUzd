@@ -1,12 +1,16 @@
-import React, {Component} from 'react';
-import './App.css';
+import React, {Component, Fragment} from 'react';
+import ProductDashboard from '../../features/product/ProductDashboard/ProductDashboard';
+import { Container } from 'semantic-ui-react';
+
 
 class App extends Component {
   render() {
-  return (
-    <div className="App">
-     <h1>Talech</h1>
-    </div>
+  return (     
+    <Fragment>    
+      <Container className="main">
+      <ProductDashboard />
+      </Container>       
+    </Fragment>   
   );
   }
 }
