@@ -27,6 +27,18 @@ const productsFromDashboard = [
         price: '245.5',
         active: true,
 
+    },
+    {
+        id:'3',
+        name: 'Test2',
+        ean: '1212121212',
+        type: 'fruit',
+        weight: '45.2',
+        color: 'red',
+        quantity: '55',
+        price: '45.5',
+        active: true,
+
     }
 ]
 
