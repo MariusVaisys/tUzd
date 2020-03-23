@@ -5,6 +5,7 @@ import ProductListHeader from './ProductListHeader'
 
 class ProductList extends Component {
     render() {
+        const {products, selectProduct, deleteProduct, updatedProduct} = this.props;
         return (
             <Fragment>
                 <Table celled >
@@ -13,10 +14,14 @@ class ProductList extends Component {
                     </Table.Header>
                     <Table.Body>
                     
-                        {this.props.products.map(product => (
+                        {products.map(product => (
                         <ProductListItem 
                         key={product.id} 
                         product={product} 
+                        selectProduct={selectProduct}
+                        updatedProduct={updatedProduct}
+                        deleteProduct={deleteProduct}
+                        
                     />
                 ))}
                 </Table.Body>

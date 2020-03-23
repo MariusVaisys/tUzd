@@ -13,10 +13,21 @@ class ProductForm extends Component {
         active: ''
     };
 
+    componentDidMount() {
+        if (this.props.selectedProduct !== null) {
+            this.setState({
+                ...this.props.selectedProduct
+            })
+        }
+    }
+
     handleFormSubmit = evt => {
         evt.preventDefault();
-        this.props.createProduct(this.state);
-
+        if (this.state.id) {
+            this.props.updatedProduct(this.state)
+        } else {
+            this.props.createProduct(this.state);
+        }
     }
 
     handleInputChange = ({target: {name, value}}) => {

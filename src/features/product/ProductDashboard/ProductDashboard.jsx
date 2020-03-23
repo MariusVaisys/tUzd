@@ -14,7 +14,7 @@ const productsFromDashboard = [
         color: 'red',
         quantity: '55',
         price: '45.5',
-        active: true,
+        active: '',
 
     },
     {
@@ -26,7 +26,7 @@ const productsFromDashboard = [
         color: 'green',
         quantity: '5',
         price: '245.5',
-        active: true,
+        active: '',
 
     },
     {
@@ -38,7 +38,7 @@ const productsFromDashboard = [
         color: 'red',
         quantity: '55',
         price: '45.5',
-        active: true,
+        active: '',
 
     }
 ]
@@ -46,7 +46,8 @@ const productsFromDashboard = [
  class ProductDashboard extends Component {
      state = {
          products: productsFromDashboard,
-         isOpen: false
+         isOpen: false,
+         selectedProduct: null
      };
 
      handleCreateFormOpen = () => {
@@ -60,36 +61,68 @@ const productsFromDashboard = [
         this.setState({
           isOpen: false
         })
-      }
-
-      handleIsOpenToggle = () => {
-          this.setState(({isOpen}) => ({
-              isOpen: !isOpen
-          }))
-      }
+      }      
 
       handleCreateProduct = (newProduct) => {
          newProduct.id = cuid(); 
+         //newProduct.isActive = true;         
          this.setState(({products}) => ({
              products: [...products, newProduct],
              isOpen: false
          }))
       }
 
+      handleSelectProduct = (product) => {
+          this.setState({
+              selectedProduct: product,
+              isOpen: true
+          })
+      }
+
+      handleUpdateProduct = (updatedProduct) => {
+        this.setState(({products}) => ({
+            products: products.map(product => {
+                if (product.id === updatedProduct.id) {
+                    return {...updatedProduct}
+                } else {
+                    return product
+                }
+            }),
+            isOpen: false,
+            selectedProduct: null
+        }))  
+      }
+
+      handleDeleteProduct = (id) => {
+        this.setState(({products}) => ({
+            products: products.filter(p => p.id !==id)
+        }))
+      }
+
+
+
     render() {
-        const {products, isOpen} = this.state;
+        const {products, isOpen, selectedProduct} = this.state;
         return (
             <Grid>
                 <Grid.Column width={12}>
-                    <ProductList products={products}/>
+                    <ProductList 
+                        products={products} 
+                        selectProduct={this.handleSelectProduct}
+                        deleteProduct={this.handleDeleteProduct}
+                        updatedProduct={this.handleUpdateProduct}
+                        />
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <Button 
                     onClick={this.handleCreateFormOpen} 
                     positive content='Add Product' />
                     {isOpen && <ProductForm 
+                    key={selectedProduct ? selectedProduct.id : 0}
+                    updatedProduct={this.handleUpdateProduct}
+                    selectedProduct={selectedProduct}
                     createProduct={this.handleCreateProduct}
-                    cancelFormOpen={this.handleIsOpenToggle}
+                    cancelFormOpen={this.handleFormCancel}
                     />}
                     
                 </Grid.Column>

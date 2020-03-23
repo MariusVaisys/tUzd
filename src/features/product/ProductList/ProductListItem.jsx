@@ -4,7 +4,7 @@ import { Table, Checkbox, Button } from 'semantic-ui-react';
 
 class ProductListItem extends Component {
     render() {
-      const {product} = this.props;
+      const {product, selectProduct, deleteProduct, updatedProduct} = this.props;
         return (  
           
             <Table.Row>  
@@ -21,16 +21,19 @@ class ProductListItem extends Component {
           </Table.Cell>  
           <Table.Cell singleLine>
             <Button 
+              onClick={() => selectProduct(product)}
               active              
               size='mini'
               content='VIEW'
               />
-              <Button               
+              <Button  
+              onClick={() => updatedProduct(product)}                         
               primary
               size='mini'
               content='EDIT'
               />
-              <Button              
+              <Button  
+              onClick={() => deleteProduct(product.id)}            
               negative
               size='mini'
               content='DELETE'
