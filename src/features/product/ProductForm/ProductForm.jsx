@@ -2,45 +2,109 @@ import React, { Component } from 'react'
 import { Segment, Form, Button, Checkbox } from 'semantic-ui-react';
 
 class ProductForm extends Component {
+    state = {
+        name: '',
+        ean: '',
+        type: '',
+        weight:'',
+        color: '',
+        quantity: '',
+        price: '',
+        active: ''
+    };
+
+    handleFormSubmit = evt => {
+        evt.preventDefault();
+        this.props.createProduct(this.state);
+
+    }
+
+    handleInputChange = ({target: {name, value}}) => {
+        this.setState({
+            [name]: value
+        });
+    };
+
     render() {
+        const {cancelFormOpen} = this.props;
+        const {name, ean, type, weight, color, quantity, price, active} = this.state;
         return (
             <Segment>
-                <Form>
+                <Form onSubmit={this.handleFormSubmit}>
                     <Form.Field>
                         <label>Name</label>
-                        <input placeholder="Name" />
+                        <input 
+                        name='name'
+                        onChange={this.handleInputChange}
+                        value={name} 
+                        placeholder="Name" 
+                        />
                     </Form.Field>
                     <Form.Field>
                         <label>EAN</label>
-                        <input placeholder="EAN" />
+                        <input 
+                        name='ean'
+                        onChange={this.handleInputChange}
+                        value={ean}
+                        placeholder="EAN" 
+                        />
                     </Form.Field>
                     <Form.Field>
                         <label>Type</label>
-                        <input placeholder="Type" />
+                        <input 
+                        name='type'
+                        onChange={this.handleInputChange}
+                        value={type} 
+                        placeholder="Type" 
+                        />
                     </Form.Field>
                     <Form.Field>
                         <label>Weight</label>
-                        <input placeholder="Weight" />
+                        <input 
+                        name='weight'
+                        onChange={this.handleInputChange}
+                        value={weight} 
+                        placeholder="Weight" 
+                        />
                     </Form.Field>
                     <Form.Field>
                         <label>Color</label>
-                        <input placeholder="Color" />
+                        <input 
+                        name='color'
+                        onChange={this.handleInputChange}
+                        value={color} 
+                        placeholder="Color" 
+                        />
                     </Form.Field>
                     <Form.Field>
                         <label>Quantity</label>
-                        <input placeholder="Color" />
+                        <input 
+                        name='quantity'
+                        onChange={this.handleInputChange}
+                        value={quantity} 
+                        placeholder="Quantity" 
+                        />
                     </Form.Field>
                     <Form.Field>
                         <label>Price</label>
-                        <input placeholder="Color" />
+                        <input 
+                        name='price'
+                        onChange={this.handleInputChange}
+                        value={price} 
+                        placeholder="Price" 
+                        />
                     </Form.Field>
                     <Form.Field>
-                        <Checkbox label='Active' />
+                        <Checkbox label='Active' 
+                        name='active'
+                        onChange={this.handleInputChange}
+                        value={active}
+                        />
                     </Form.Field>
                     <Button positive type='submit'>
                         Save
                     </Button>
-                    <Button type='button'>
+                    <Button onClick={cancelFormOpen} type='button'>
                         Cancel
                     </Button>
                 </Form>

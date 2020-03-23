@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Button } from 'semantic-ui-react';
 import ProductForm from '../ProductForm/ProductForm';
 import ProductList from '../ProductList/ProductList';
+import cuid from 'cuid';
 
 const productsFromDashboard = [
     {
@@ -55,6 +56,26 @@ const productsFromDashboard = [
         })
       }
 
+      handleFormCancel =() => {
+        this.setState({
+          isOpen: false
+        })
+      }
+
+      handleIsOpenToggle = () => {
+          this.setState(({isOpen}) => ({
+              isOpen: !isOpen
+          }))
+      }
+
+      handleCreateProduct = (newProduct) => {
+         newProduct.id = cuid(); 
+         this.setState(({products}) => ({
+             products: [...products, newProduct],
+             isOpen: false
+         }))
+      }
+
     render() {
         const {products, isOpen} = this.state;
         return (
@@ -63,8 +84,13 @@ const productsFromDashboard = [
                     <ProductList products={products}/>
                 </Grid.Column>
                 <Grid.Column width={4}>
-                    <Button positive content='Add Product' />
-                    {isOpen && <ProductForm />}
+                    <Button 
+                    onClick={this.handleCreateFormOpen} 
+                    positive content='Add Product' />
+                    {isOpen && <ProductForm 
+                    createProduct={this.handleCreateProduct}
+                    cancelFormOpen={this.handleIsOpenToggle}
+                    />}
                     
                 </Grid.Column>
             </Grid>
