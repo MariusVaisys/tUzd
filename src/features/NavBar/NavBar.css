@@ -1,0 +1,9 @@
+.ui.fixed.menu {
+    background-color: rgb(32, 167, 172) 89%
+    
+  }
+
+.ui.main.container,
+.main.segment {
+  margin-top: 7em;
+}

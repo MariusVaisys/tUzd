@@ -64,8 +64,7 @@ const productsFromDashboard = [
       }      
 
       handleCreateProduct = (newProduct) => {
-         newProduct.id = cuid(); 
-         //newProduct.isActive = true;         
+         newProduct.id = cuid();           
          this.setState(({products}) => ({
              products: [...products, newProduct],
              isOpen: false
